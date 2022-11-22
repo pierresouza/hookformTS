@@ -6,13 +6,13 @@ import * as yup from "yup";
 import "./App.css";
 
 interface IFormInputs {
-  name: string;
+  firstName: string;
   email: string;
 }
 
 const schema = yup
   .object({
-    name: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
+    firstName: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
     email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório"),
   })
   .required();
@@ -37,8 +37,8 @@ export function App() {
           <form onSubmit={handleSubmit(Onsubmit)}>
             <label className="person-info">
               Nome
-              <input type="text" {...register("name")} />
-              <span>{errors.name?.message}</span>
+              <input type="text" {...register("firstName")} />
+              <span>{errors.firstName?.message}</span>
             </label>
             <label className="person-info">
               E-mail
@@ -47,7 +47,7 @@ export function App() {
             </label>
             <label className="office">
               Qual o seu atual cargo?
-              <select name="cargo">
+              <select className="cargo">
                 <option disabled selected value="selecione">
                   selecione
                 </option>
