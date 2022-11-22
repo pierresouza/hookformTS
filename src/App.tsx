@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IFormInputs {
+  name: string;
+  email: string;
 }
 
-export default App;
+const schema = yup
+  .object({
+    name: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
+    email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório"),
+  })
+  .required();
+
+export function App() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>({
+    resolver: yupResolver(schema),
+  });
+
+  function Onsubmit(userData: any) {
+    console.log(userData);
+  }
+  return (
+    <>
+      <div className="App">
+        <img src={logo} height="80" alt="" />
+        <div className="formulario">
+          <form onSubmit={handleSubmit(Onsubmit)}>
+            <label className="person-info">
+              Nome
+              <input type="text" {...register("name")} />
+              <span>{errors.name?.message}</span>
+            </label>
+            <label className="person-info">
+              E-mail
+              <input type="text" {...register("email")} />
+              <span>{errors.email?.message}</span>
+            </label>
+            <label className="office">
+              Qual o seu atual cargo?
+              <select name="cargo">
+                <option disabled selected value="selecione">
+                  selecione
+                </option>
+                <option value="Junior">Junior</option>
+                <option value="Pleno">Pleno</option>
+                <option value="Senior">Senior</option>
+                <option value="Tech-Lead">Tech-Lead</option>
+              </select>
+            </label>
+            <div className="area-button">
+              <button type="submit">Enviar Dados</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}
