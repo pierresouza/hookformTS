@@ -35,20 +35,22 @@ export function App() {
         <img src={logo} height="80" alt="" />
         <div className="formulario">
           <form onSubmit={handleSubmit(Onsubmit)}>
-            <label className="person-info">
+            <div className="person-info">
               Nome
               <input type="text" {...register("User")} />
               <span className="errors">{errors.User?.message}</span>
-            </label>
-            <label className="person-info">
+            </div>
+            <div className="person-info">
               E-mail
               <input type="text" {...register("email")} />
               <span className="errors">{errors.email?.message}</span>
-            </label>
+            </div>
             <div className="office">
               <span className="office-title">Qual o seu cargo ?</span>
               <select {...register("select")}>
-                <option value=""></option>
+                <option value="" disabled>
+                  Selecione
+                </option>
                 <option value="Junior">Junior</option>
                 <option value="Pleno">Pleno</option>
                 <option value="Senior">Senior</option>
