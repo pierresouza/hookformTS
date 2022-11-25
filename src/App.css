@@ -31,6 +31,7 @@ select {
 .area-button {
   display: flex;
   justify-content: center;
+  padding: 0.5rem 0rem;
 }
 
 .area-button button {
@@ -43,7 +44,7 @@ select {
   flex-direction: column;
 }
 
-.person-info label input {
+.person-info div input {
   margin-left: 4px;
   width: 145px;
 }
@@ -51,9 +52,8 @@ select {
 .office {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
-span {
+.errors {
   color: #ff0000;
 }

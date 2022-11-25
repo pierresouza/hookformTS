@@ -6,14 +6,16 @@ import * as yup from "yup";
 import "./App.css";
 
 interface IFormInputs {
-  firstName: string;
+  User: string;
   email: string;
+  select: string;
 }
 
 const schema = yup
   .object({
-    firstName: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
+    User: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
     email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório"),
+    select: yup.string().required("selecione uma opção"),
   })
   .required();
 
@@ -22,9 +24,7 @@ export function App() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({
-    resolver: yupResolver(schema),
-  });
+  } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
 
   function Onsubmit(userData: any) {
     console.log(userData);
@@ -37,26 +37,25 @@ export function App() {
           <form onSubmit={handleSubmit(Onsubmit)}>
             <label className="person-info">
               Nome
-              <input type="text" {...register("firstName")} />
-              <span>{errors.firstName?.message}</span>
+              <input type="text" {...register("User")} />
+              <span className="errors">{errors.User?.message}</span>
             </label>
             <label className="person-info">
               E-mail
               <input type="text" {...register("email")} />
-              <span>{errors.email?.message}</span>
+              <span className="errors">{errors.email?.message}</span>
             </label>
-            <label className="office">
-              Qual o seu atual cargo?
-              <select className="cargo">
-                <option disabled selected value="selecione">
-                  selecione
-                </option>
+            <div className="office">
+              <span className="office-title">Qual o seu cargo ?</span>
+              <select {...register("select")}>
+                <option value=""></option>
                 <option value="Junior">Junior</option>
                 <option value="Pleno">Pleno</option>
                 <option value="Senior">Senior</option>
                 <option value="Tech-Lead">Tech-Lead</option>
               </select>
-            </label>
+              <span className="errors">{errors.select?.message}</span>
+            </div>
             <div className="area-button">
               <button type="submit">Enviar Dados</button>
             </div>
