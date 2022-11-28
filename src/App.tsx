@@ -7,15 +7,17 @@ import "./App.css";
 
 interface IFormInputs {
   User: string;
+  WorkYears: number;
   email: string;
   select: string;
 }
 
 const schema = yup
   .object({
-    User: yup.string().required("O nome é obrigatório").required("O nome é obrigatório"),
-    email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório"),
-    select: yup.string().required("selecione uma opção"),
+    User: yup.string().required("O nome é obrigatório").required("O nome é obrigatório !"),
+    WorkYears: yup.number().positive().required("insira seu tempo de experiência !"),
+    email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório !"),
+    select: yup.string().required("selecione uma opção !"),
   })
   .required();
 
@@ -35,22 +37,25 @@ export function App() {
         <img src={logo} height="80" alt="" />
         <div className="formulario">
           <form onSubmit={handleSubmit(Onsubmit)}>
-            <div className="person-info">
+            <label className="person-info">
               Nome
-              <input type="text" {...register("User")} />
+              <input type="text" minLength={4} {...register("User")} />
               <span className="errors">{errors.User?.message}</span>
-            </div>
-            <div className="person-info">
+            </label>
+            <label className="person-info">
+              Anos na área?
+              <input type="number" {...register("User")} />
+              <span className="errors">{errors.User?.message}</span>
+            </label>
+            <label className="person-info">
               E-mail
               <input type="text" {...register("email")} />
               <span className="errors">{errors.email?.message}</span>
-            </div>
+            </label>
             <div className="office">
               <span className="office-title">Qual o seu cargo ?</span>
               <select {...register("select")}>
-                <option value="" disabled>
-                  Selecione
-                </option>
+                <option value=""></option>
                 <option value="Junior">Junior</option>
                 <option value="Pleno">Pleno</option>
                 <option value="Senior">Senior</option>
