@@ -96,8 +96,9 @@ select {
   margin-bottom: 2px;
 }
 
-.multi-options p :checked {
-  color: #ff0000;
+.multi-options input[type="checkbox"]:checked + label {
+  color: red;
+  transition: all 0.4s;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
