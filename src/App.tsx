@@ -16,10 +16,10 @@ interface IFormInputs {
 const schema = yup
   .object({
     User: yup.string().required("O nome é obrigatório").required("O nome é obrigatório !"),
-    WorkYears: yup.number().required("insira seu tempo de experiência !"),
+    WorkYears: yup.number().positive("insira seu tempo de experiência !").integer().required("insira seu tempo de experiência !"),
     email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório !"),
     select: yup.string().required("selecione uma opção !"),
-    myRadio: yup.array().min(1, "Selecione ao menos uma opção"),
+    myRadio: yup.array().min(1, "Selecione ao menos uma opção").nullable().required("Selecione ao menos uma opção"),
   })
   .required();
 
@@ -86,10 +86,10 @@ export function App() {
               </select>
               <span className="errors">{errors.select?.message}</span>
             </div>
-            <div className="multi-options">
+            <div className="box-multi-options">
               <p className="text-options">Quais linguagens você conhece ?</p>
               {data.map(({ id, text, value }) => (
-                <div key={id}>
+                <div key={id} className="multi-options">
                   <input type="checkbox" value={value} {...register("myRadio")} />
                   <p>{text}</p>
                 </div>
