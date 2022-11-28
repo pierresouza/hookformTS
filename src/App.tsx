@@ -91,7 +91,7 @@ export function App() {
               {data.map(({ id, text, value }) => (
                 <div key={id} className="multi-options">
                   <input type="checkbox" value={value} {...register("myRadio")} />
-                  <p>{text}</p>
+                  <label>{text}</label>
                 </div>
               ))}
               <span className="errors">{errors.myRadio?.message}</span>
