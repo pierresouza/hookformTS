@@ -76,24 +76,28 @@ select {
   margin-left: 4px;
 }
 
-.text-options {
-  margin: 0px 0px 0px 4px;
+.box-multi-options {
+  display: flex;
+  flex-direction: column;
 }
 
 .multi-options {
   display: flex;
-  flex-direction: column;
-  margin-left: 4px;
 }
 
-.multi-options div {
-  display: flex;
+.text-options {
+  margin: 0px 0px 0px 4px;
+  display: block;
 }
 
 .multi-options p {
   margin-left: 4px;
   margin-top: 2px;
   margin-bottom: 2px;
+}
+
+.multi-options p :checked {
+  color: #ff0000;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
