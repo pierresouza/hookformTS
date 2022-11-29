@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "User": "pierre",
+      "WorkYears": 1,
+      "email": "pierre.s3@hotmail.com",
+      "password": "pierre123",
+      "Confirmpassword": "pierre123",
+      "select": "Junior",
+      "myRadio": [
+        "ReactJs"
+      ],
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { api } from "../src/services";
 import "./App.css";
 
 interface IFormInputs {
@@ -48,6 +49,16 @@ export function App() {
   ];
 
   function Onsubmit(userData: any) {
+    if (!userData) return;
+    api
+      .post("/posts", userData)
+      .then((response) => {
+        alert("Cadastro Realizado com Sucesso");
+      })
+      .catch((error) => {
+        console.log(error.data);
+        alert("Erro ao cadastrar");
+      });
     console.log(userData);
   }
   return (
