@@ -11,6 +11,8 @@ interface IFormInputs {
   email: string;
   select: string;
   myRadio: [];
+  password: string;
+  Confirmpassword: string;
 }
 
 const schema = yup
@@ -20,6 +22,11 @@ const schema = yup
     email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório !"),
     select: yup.string().required("selecione uma opção !"),
     myRadio: yup.array().min(1, "Selecione ao menos uma opção").nullable().required("Selecione ao menos uma opção"),
+    password: yup.string().min(8, "A senha deve ter no mínimo 8 digitos!").required("A senha é obrigatória"),
+    Confirmpassword: yup
+      .string()
+      .required("Confirmar a senha é obrigatório")
+      .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
   })
   .required();
 
@@ -74,6 +81,16 @@ export function App() {
               <p>E-mail</p>
               <input type="text" {...register("email")} />
               <span className="errors">{errors.email?.message}</span>
+            </label>
+            <label className="person-info">
+              Senha
+              <input type="password" {...register("password")} />
+              <span className="errors">{errors.password?.message}</span>
+            </label>
+            <label className="person-info">
+              Confirmar senha
+              <input type="password" {...register("Confirmpassword")} />
+              <span className="errors">{errors.Confirmpassword?.message}</span>
             </label>
             <div className="office">
               <p className="person-info">Qual o seu cargo ?</p>
