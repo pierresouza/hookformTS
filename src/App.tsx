@@ -2,34 +2,19 @@ import React from "react";
 import logo from "./logo.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { api } from "../src/services";
+import { schema } from "./validations";
+import { TFormSchema } from "./types";
+import { registerUser } from "../src/services/actions";
 import "./App.css";
 
-interface IFormInputs {
-  User: string;
-  WorkYears: number;
-  email: string;
-  select: string;
-  myRadio: [];
-  password: string;
-  Confirmpassword: string;
-}
-
-const schema = yup
-  .object({
-    User: yup.string().required("O nome é obrigatório").required("O nome é obrigatório !"),
-    WorkYears: yup.number().positive("insira seu tempo de experiência !").integer().required("insira seu tempo de experiência !"),
-    email: yup.string().email("Digite um e-mail válido").required("O e-mail é obigatório !"),
-    select: yup.string().required("selecione uma opção !"),
-    myRadio: yup.array().min(1, "Selecione ao menos uma opção").nullable().required("Selecione ao menos uma opção"),
-    password: yup.string().min(8, "A senha deve ter no mínimo 8 digitos!").required("A senha é obrigatória"),
-    Confirmpassword: yup
-      .string()
-      .required("Confirmar a senha é obrigatório")
-      .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
-  })
-  .required();
+const data = [
+  { text: "ReactJs", value: "ReactJs", id: 1 },
+  { text: "Javascript", value: "Javascript", id: 2 },
+  { text: "Typescript", value: "Typescript", id: 3 },
+  { text: "CSS", value: "CSS", id: 4 },
+  { text: "Sass", value: "Sass", id: 5 },
+  { text: "Less", value: "Less", id: 6 },
+];
 
 export function App() {
   const {
@@ -37,28 +22,12 @@ export function App() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
+  } = useForm<TFormSchema>({ resolver: yupResolver(schema) });
 
-  const data = [
-    { text: "ReactJs", value: "ReactJs", id: 1 },
-    { text: "Javascript", value: "Javascript", id: 2 },
-    { text: "Typescript", value: "Typescript", id: 3 },
-    { text: "CSS", value: "CSS", id: 4 },
-    { text: "Sass", value: "Sass", id: 5 },
-    { text: "Less", value: "Less", id: 6 },
-  ];
-
-  function Onsubmit(userData: any) {
+  function Onsubmit(userData: TFormSchema) {
     if (!userData) return;
-    api
-      .post("/posts", userData)
-      .then((response) => {
-        alert("Cadastro Realizado com Sucesso");
-      })
-      .catch((error) => {
-        console.log(error.data);
-        alert("Erro ao cadastrar");
-      });
+    registerUser(userData);
+
     console.log(userData);
   }
   return (
