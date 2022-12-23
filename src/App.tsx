@@ -9,8 +9,8 @@ import "./App.css";
 
 const data = [
   { text: "ReactJs", value: "ReactJs", id: 1 },
-  { text: "Javascript", value: "Javascript", id: 2 },
-  { text: "Typescript", value: "Typescript", id: 3 },
+  { text: "JavaScript", value: "JavaScript", id: 2 },
+  { text: "TypeScript", value: "TypeScript", id: 3 },
   { text: "CSS", value: "CSS", id: 4 },
   { text: "Sass", value: "Sass", id: 5 },
   { text: "Less", value: "Less", id: 6 },
@@ -87,11 +87,11 @@ export function App() {
               <p className="text-options">Quais linguagens você conhece ?</p>
               {data.map(({ id, text, value }) => (
                 <div key={id} className="multi-options">
-                  <input type="checkbox" value={value} {...register("myRadio")} />
+                  <input type="checkbox" value={value} {...register("MyCheckbox")} />
                   <label>{text}</label>
                 </div>
               ))}
-              <span className="errors">{errors.myRadio?.message}</span>
+              <span className="errors">{errors.MyCheckbox?.message}</span>
             </div>
             <div className="area-button">
               <button type="submit">Enviar Dados</button>
